@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import config from "./config";
 import v1 from "./routes/v1";
+import errorHandeler from "./middleware/error-handeler";
 
 export const createServer = () => {
   const app = express();
@@ -17,5 +18,8 @@ export const createServer = () => {
     res.json({ ok: true, environment: config.env });
   });
   app.use("/v1", v1);
+
+  app.use(errorHandeler);
+
   return app;
 };
